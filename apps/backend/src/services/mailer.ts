@@ -36,7 +36,22 @@ const getPreviewMessage = (info: unknown) => {
   return Buffer.isBuffer(message) ? message.toString() : String(message ?? '');
 };
 
+const logMailConfig = () => {
+  console.info('Mail config:', {
+    mode: mailDevMode ? 'dev' : 'smtp',
+    host: env.smtp.host,
+    port: env.smtp.port,
+    secure: env.smtp.secure,
+    userSet: Boolean(env.smtp.user),
+    passSet: Boolean(env.smtp.pass),
+    ownerSet: Boolean(env.ownerEmail),
+    fromSet: Boolean(env.mailFrom),
+  });
+};
+
 export const sendContactEmails = async (payload: ContactPayload) => {
+  logMailConfig();
+
   if (!mailDevMode && !env.ownerEmail) {
     throw new Error('OWNER_EMAIL is required for production email delivery');
   }
