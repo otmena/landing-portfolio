@@ -1,8 +1,9 @@
 import nodemailer from 'nodemailer';
-import { brevoReady, env, mailDevMode } from '../config/env.js';
+import { brevoReady, env, mailDevMode, unisenderReady } from '../config/env.js';
 import type { ContactPayload } from '../schemas/contactSchema.js';
 import { cleanHeader } from '../utils/html.js';
 import { buildOwnerEmail, buildOwnerText, buildUserCopyEmail, buildUserCopyText } from './emailTemplates.js';
+import { sendUnisenderEmail } from './unisender.js';
 
 const createTransporter = () => {
   if (mailDevMode) {
@@ -38,7 +39,9 @@ const getPreviewMessage = (info: unknown) => {
 
 const logMailConfig = () => {
   console.info('Mail config:', {
-    mode: mailDevMode ? 'dev' : brevoReady ? 'brevo' : 'smtp',
+    mode: mailDevMode ? 'dev' : unisenderReady ? 'unisender' : brevoReady ? 'brevo' : 'smtp',
+    unisenderKeySet: Boolean(env.unisender.apiKey),
+    unisenderFromSet: Boolean(env.unisender.fromEmail),
     brevoKeySet: Boolean(env.brevo.apiKey),
     brevoSenderSet: Boolean(env.brevo.senderEmail),
     host: env.smtp.host,
@@ -129,6 +132,24 @@ const sendViaBrevo = async (payload: ContactPayload, subject: string, ownerEmail
   ]);
 };
 
+const sendViaUnisender = async (payload: ContactPayload, subject: string, ownerEmail: string) => {
+  await Promise.all([
+    sendUnisenderEmail({
+      to: ownerEmail,
+      replyTo: payload.email,
+      subject,
+      html: buildOwnerEmail(payload),
+      text: buildOwnerText(payload),
+    }),
+    sendUnisenderEmail({
+      to: payload.email,
+      subject: 'Копия вашего сообщения',
+      html: buildUserCopyEmail(payload),
+      text: buildUserCopyText(payload),
+    }),
+  ]);
+};
+
 export const sendContactEmails = async (payload: ContactPayload) => {
   logMailConfig();
 
@@ -138,6 +159,11 @@ export const sendContactEmails = async (payload: ContactPayload) => {
 
   const ownerEmail = env.ownerEmail || 'owner@example.com';
   const subject = cleanHeader(`Заявка с лендинга от ${payload.name}`);
+
+  if (unisenderReady) {
+    await sendViaUnisender(payload, subject, ownerEmail);
+    return;
+  }
 
   if (brevoReady) {
     await sendViaBrevo(payload, subject, ownerEmail);

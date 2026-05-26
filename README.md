@@ -29,6 +29,7 @@ npm run start
 - Express
 - Zod
 - Nodemailer
+- Unisender Go API
 - Brevo API
 - OpenAI API
 

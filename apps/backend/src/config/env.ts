@@ -16,6 +16,12 @@ export const env = {
     senderEmail: process.env.BREVO_SENDER_EMAIL || '',
     senderName: process.env.BREVO_SENDER_NAME || 'Руслан Тимергалиев',
   },
+  unisender: {
+    apiKey: process.env.UNISENDER_API_KEY || '',
+    fromEmail: process.env.UNISENDER_FROM_EMAIL || '',
+    fromName: process.env.UNISENDER_FROM_NAME || 'Руслан Тимергалиев',
+    apiUrl: process.env.UNISENDER_API_URL || 'https://goapi.unisender.ru/ru/transactional/api/v1',
+  },
   smtp: {
     host: process.env.SMTP_HOST || '',
     port: Number(process.env.SMTP_PORT || 465),
@@ -27,5 +33,6 @@ export const env = {
 };
 
 export const brevoReady = Boolean(env.brevo.apiKey && env.brevo.senderEmail);
+export const unisenderReady = Boolean(env.unisender.apiKey && env.unisender.fromEmail);
 export const smtpReady = Boolean(env.smtp.host && env.smtp.user && env.smtp.pass);
-export const mailDevMode = process.env.MAIL_DEV_MODE === 'true' || (!brevoReady && !smtpReady);
+export const mailDevMode = process.env.MAIL_DEV_MODE === 'true' || (!unisenderReady && !brevoReady && !smtpReady);
