@@ -31,6 +31,11 @@ export const sendUnisenderEmail = async (message: UnisenderMessage) => {
         reply_to_name: message.replyTo ? message.replyTo : undefined,
         track_links: 0,
         track_read: 0,
+        options: env.unisender.customBackendId
+          ? {
+              custom_backend_id: env.unisender.customBackendId,
+            }
+          : undefined,
       },
     }),
   });

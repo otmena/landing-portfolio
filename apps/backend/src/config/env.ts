@@ -21,6 +21,7 @@ export const env = {
     fromEmail: process.env.UNISENDER_FROM_EMAIL || '',
     fromName: process.env.UNISENDER_FROM_NAME || 'Руслан Тимергалиев',
     apiUrl: process.env.UNISENDER_API_URL || 'https://goapi.unisender.ru/ru/transactional/api/v1',
+    customBackendId: Number(process.env.UNISENDER_CUSTOM_BACKEND_ID || 0),
   },
   smtp: {
     host: process.env.SMTP_HOST || '',
