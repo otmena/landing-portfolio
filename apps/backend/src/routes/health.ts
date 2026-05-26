@@ -8,6 +8,6 @@ healthRouter.get('/health', (_req, res) => {
     ok: true,
     mailMode: mailDevMode ? 'dev' : 'smtp',
     mailProvider,
-    ai: Boolean(env.openAiApiKey),
+    ai: Boolean(env.geminiApiKey || env.openAiApiKey),
   });
 });
