@@ -36,3 +36,5 @@ export const brevoReady = Boolean(env.brevo.apiKey && env.brevo.senderEmail);
 export const unisenderReady = Boolean(env.unisender.apiKey && env.unisender.fromEmail);
 export const smtpReady = Boolean(env.smtp.host && env.smtp.user && env.smtp.pass);
 export const mailDevMode = process.env.MAIL_DEV_MODE === 'true' || (!unisenderReady && !brevoReady && !smtpReady);
+
+export const mailProvider = mailDevMode ? 'dev' : unisenderReady ? 'unisender' : brevoReady ? 'brevo' : 'smtp';

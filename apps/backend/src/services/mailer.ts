@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { brevoReady, env, mailDevMode, unisenderReady } from '../config/env.js';
+import { brevoReady, env, mailDevMode, mailProvider, unisenderReady } from '../config/env.js';
 import type { ContactPayload } from '../schemas/contactSchema.js';
 import { cleanHeader } from '../utils/html.js';
 import { buildOwnerEmail, buildOwnerText, buildUserCopyEmail, buildUserCopyText } from './emailTemplates.js';
@@ -39,7 +39,7 @@ const getPreviewMessage = (info: unknown) => {
 
 const logMailConfig = () => {
   console.info('Mail config:', {
-    mode: mailDevMode ? 'dev' : unisenderReady ? 'unisender' : brevoReady ? 'brevo' : 'smtp',
+    mode: mailProvider,
     unisenderKeySet: Boolean(env.unisender.apiKey),
     unisenderFromSet: Boolean(env.unisender.fromEmail),
     brevoKeySet: Boolean(env.brevo.apiKey),
