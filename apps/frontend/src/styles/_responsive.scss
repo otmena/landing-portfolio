@@ -1,0 +1,145 @@
+@media (max-width: 960px) {
+  .hero,
+  .about,
+  .ai-section,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: auto;
+    align-items: start;
+  }
+
+  .hero__portrait {
+    justify-self: start;
+    width: min(100%, 520px);
+    max-width: 560px;
+  }
+
+  .stats,
+  .stack-grid,
+  .workflow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .service-row,
+  .case-row {
+    grid-template-columns: 64px 1fr;
+
+    p {
+      grid-column: 2;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    align-items: flex-start;
+  }
+
+  .nav {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 14vw, 4.8rem);
+  }
+
+  .hero {
+    padding-top: 32px;
+  }
+
+  .hero__actions {
+    display: grid;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .hero__portrait {
+    aspect-ratio: 0.82;
+
+    figcaption {
+      display: grid;
+    }
+  }
+
+  .stats,
+  .stack-grid,
+  .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stack-card {
+    min-height: auto;
+  }
+
+  .stats article {
+    border-right: 0;
+    border-bottom: 1px solid #101010;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .service-row,
+  .case-row {
+    grid-template-columns: 1fr;
+
+    p {
+      grid-column: auto;
+    }
+  }
+
+  .workflow-grid article {
+    min-height: auto;
+  }
+
+  .workflow-grid strong {
+    margin-bottom: 34px;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    padding: 14px 16px;
+  }
+
+  .nav {
+    gap: 10px 14px;
+    align-self: center;
+    font-size: 0.76rem;
+  }
+
+  .ticker div {
+    padding-right: 30px;
+    animation-duration: 18s;
+    font-size: 0.95rem;
+  }
+
+  .section,
+  .hero {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .contact-links {
+    font-size: 1.05rem;
+  }
+}

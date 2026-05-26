@@ -1,0 +1,32 @@
+{
+  "name": "developer-landing-test-task",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client": "vite --config apps/frontend/vite.config.ts --host 0.0.0.0",
+    "dev:server": "tsx watch apps/backend/src/index.ts",
+    "build": "tsc -p apps/backend/tsconfig.json && vite build --config apps/frontend/vite.config.ts",
+    "preview": "npm run build && npm run start",
+    "start": "node dist/backend/index.js",
+    "typecheck": "tsc -p apps/frontend/tsconfig.json --noEmit && tsc -p apps/backend/tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^8.0.9",
+    "openai": "^4.85.4",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "@types/nodemailer": "^6.4.17",
+    "concurrently": "^9.1.2",
+    "sass": "^1.85.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1"
+  }
+}

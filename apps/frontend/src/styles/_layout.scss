@@ -1,0 +1,59 @@
+.site-header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px clamp(18px, 4vw, 56px);
+  border-bottom: 1px solid #101010;
+  background: rgba(244, 244, 242, 0.88);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid #101010;
+  border-radius: 50%;
+  color: #f4f4f2;
+  background: #101010;
+  font-weight: 900;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.6vw, 34px);
+  color: #303030;
+  font-size: 0.92rem;
+  font-weight: 800;
+
+  a {
+    border-bottom: 1px solid transparent;
+  }
+
+  a:hover,
+  a:focus-visible {
+    border-color: currentColor;
+  }
+}
+
+.section {
+  padding: clamp(64px, 9vw, 118px) clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid #101010;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 28px clamp(18px, 5vw, 72px);
+  color: #f4f4f2;
+  background: #101010;
+  font-size: 0.92rem;
+  font-weight: 850;
+}
