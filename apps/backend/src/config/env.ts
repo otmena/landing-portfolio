@@ -11,6 +11,11 @@ export const env = {
   mailFrom: process.env.MAIL_FROM || 'Ruslan Timergaliev <no-reply@example.com>',
   openAiApiKey: process.env.OPENAI_API_KEY || '',
   openAiModel: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+  brevo: {
+    apiKey: process.env.BREVO_API_KEY || '',
+    senderEmail: process.env.BREVO_SENDER_EMAIL || '',
+    senderName: process.env.BREVO_SENDER_NAME || 'Руслан Тимергалиев',
+  },
   smtp: {
     host: process.env.SMTP_HOST || '',
     port: Number(process.env.SMTP_PORT || 465),
@@ -21,5 +26,6 @@ export const env = {
   staticDir: path.join(projectRoot, 'dist/frontend'),
 };
 
+export const brevoReady = Boolean(env.brevo.apiKey && env.brevo.senderEmail);
 export const smtpReady = Boolean(env.smtp.host && env.smtp.user && env.smtp.pass);
-export const mailDevMode = process.env.MAIL_DEV_MODE === 'true' || !smtpReady;
+export const mailDevMode = process.env.MAIL_DEV_MODE === 'true' || (!brevoReady && !smtpReady);

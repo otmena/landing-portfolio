@@ -19,3 +19,6 @@ export const buildUserCopyEmail = ({ name, comment }: ContactPayload) => `
 
 export const buildOwnerText = ({ name, phone, email, comment }: ContactPayload) =>
   `Новая заявка\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\nКомментарий: ${comment}`;
+
+export const buildUserCopyText = ({ name, comment }: ContactPayload) =>
+  `${name}, спасибо за сообщение.\n\nВаш комментарий:\n${comment}`;
